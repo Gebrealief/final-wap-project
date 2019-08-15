@@ -62,7 +62,7 @@ function calculateTotal(data) {
     $('#total-price').text("Total: $" + (parseFloat(subtotal) + (data)));
 }
 function fail(data) {
-     alert("fail");
+
     console.log(data);
 }
 $(function () {
@@ -75,19 +75,59 @@ $(function () {
 
     //load login page
     $('#login').click(loadLoginPage);
-    $('#btn-login-me').click(sendLoginDetails);
+    $('#btn-login-me').on('click', sendLoginDetails);
+    //click(sendLoginDetails);
 
 
     $('#btn_logout').click(loadLogout);
+
     $('#checkout').click(checkout);
-    $('#signup').click(signUpFunction);
-    function signUpFunction(evt) {
-        window.location.href= "signup.jsp";
+
+    $('#signup').click(loadSignUpPage);
+    $("#btn-sign-me").click(sendSignUpDetails);
+    function sendSignUpDetails(evt) {
+        //window.location.href= "signup.jsp";
+        var userName= $('#userName').val();
+        var password= $('#password').val();
+        var fullName= $('#fullName').val();
+        var email= $('#email').val();
+        $.post("signup",{
+            "userName": userName,
+            "password": password,
+            "fullName": fullName,
+            "email": email,
+        }).done(successSignUpDetail).fail(successSignUpDetail);
+    }
+    function successSignUpDetail(data) {
+        if(data === "TRUE"){
+            adjustTopMenu(true);
+            window.location.href="products";
+        }else {
+            $('#login').click();
+        }
+
+    }
+    function hideAllControlsExcept(exceptID) {
+        $('.buttonControl').addClass('hide');
+        $(exceptID).removeClass('hide');
+    }
+
+    function loadSignUpPage (evt) {
+        hideAllControlsExcept('#signup-control');
+        $('#add-prouduct').find("*").remove();
+        $.ajax("signup", {
+            type: "GET"
+        }).done(function(data) {
+            $('#add-prouduct').html(data);
+        });
+        $('#signup-control').removeClass('hide');
     }
     function sendLoginDetails(evt) {
-        var userName= $('user-name').val();
-        var password= $('password').val();
-        var checkbox= $('checkbox').val();
+
+        var userName= $('#user-name').val();
+        var password= $('#password').val();
+        var checkbox= $('#checkbox').val();
+        //alert("us: " + userName + " , ps: " + password + " , ch: " + checkbox );
         $.post("login",{
             "user-name": userName,
             "password": password,
@@ -156,7 +196,7 @@ function addProductFail(xhr, status, exception ) {
     }
     // display add product form
     function displayPage() {
-        $('#save-new-product').removeClass("hide");
+        hideAllControlsExcept('#save-new-product');
         $.ajax("ajaxProduct", {
             type: "GET"
         }).done(function(data) {
@@ -186,6 +226,8 @@ function addProductFail(xhr, status, exception ) {
         //$.ajax({ "url": "login.jsp", "type": "GET", "success": myAjaxSuccessFunction, "error": ajaxFailure});
         //window.location.href = "login.jsp";
        // $('#login').load('login.jsp');
+        //alert("top login clicked.");
+        hideAllControlsExcept('#login-control');
         $('#add-prouduct').find("*").remove();
         $.ajax("login", {
             type: "GET"

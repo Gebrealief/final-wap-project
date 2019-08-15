@@ -31,21 +31,11 @@
 <body background=" resources/img/bg-01.jpg";>
 <div >
 	<form method="post" action="signup">
-		<p>
-			<label for="fullName">Full Name: <input id="fullName" type="text" name="fullName" /> </label>
-		</p>
+		<p><label for="fullName">Full Name: </label> <input id="fullName" type="text" name="fullName" /></p>
+		<p><label for="userName">User Name: </label><input id="userName" type="text" name="userName" /></p>
+		<p><label for="password">Password: </label><input id="password" type="password" name="password" /></p>
+		<p><label for="email">Email: </label><input type="email" id="email" name="email" /></p>
 
-		<p>
-			<label for="userName">User Name: <input id="userName" type="text" name="userName" /> </label>
-		</p>
-
-		<p>
-			<label for="password">Password: <input id="password" type="password" name="password" /> </label>
-		</p>
-
-		<p>
-			<label for="email">Email: <input type="email" id="email" name="email" /> </label>
-		</p>
 		<p>
 			<input id="submit" type="submit" name="submit" />
 		</p>

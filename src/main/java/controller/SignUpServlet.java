@@ -28,53 +28,34 @@ public class SignUpServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
+        response.setContentType("text/html");
+        String fullName, email, userName, password;
+        fullName=email=userName=password=null;
+        try {
+            fullName = request.getParameter("fullName");
+            email = request.getParameter("email");
+            userName= request.getParameter("userName");
+            password = request.getParameter("password");
+        }catch(Exception e) {
+            response.getWriter().println("FALSE");
+            return;
+        }
+        if(fullName == null || email == null || userName == null || password == null) {
+            response.getWriter().println("FALSE");
+            return;
+        }
         User user= new User(fullName, email, userName, password);
         Login.usersDAO.addUser(user);
-        request.getRequestDispatcher("login").forward(request, response);
-/*
-  System.out.println(fullname+" "+email+" "+username+" "+password);
-        if (UserUtil.setUser(username, new User(fullname, email, username, password))) {
-
-            request.getSession().setAttribute("Welcome", "Welcome  " + fullname);
-            response.sendRedirect("/assignment13/login.jsp");
-        } else {
-
-            request.getSession().setAttribute("Warning", "Username or email exist please try again");
-            response.sendRedirect("/assignment13/index.jsp");
-        }*/
+        //request.getRequestDispatcher("login").forward(request, response);
+        response.getWriter().println("TRUE");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*
-
-        if (request.getParameter("username") != null) {
-            PrintWriter out = response.getWriter();
-            String username = request.getParameter("username");
-            Boolean isUser = UserUtil.isExistUserName(username);
-
-            try {
-                out.println(isUser);
-            } finally {
-                out.close();
-            }
-        } else if (request.getParameter("email") != null) {
-            PrintWriter out = response.getWriter();
-            String s=request.getParameter("username");
-            String email = request.getParameter("email");
-            Boolean isEmailUser = UserUtil.isExistEmail(s,email);
-            try {
-                out.println(isEmailUser);
-            } finally {
-                out.close();
-            }
-        }
-*/
-
-
+        response.setContentType("text/html");
+        PrintWriter out= response.getWriter();
+        out.println("<p><label for=\"fullName\">Full Name: </label> <input id=\"fullName\" type=\"text\" name=\"fullName\" /></p>");
+        out.println("<p><label for=\"userName\">User Name: </label><input id=\"userName\" type=\"text\" name=\"userName\" /></p>");
+        out.println("<p><label for=\"password\">Password: </label><input id=\"password\" type=\"password\" name=\"password\" /></p>");
+        out.println("<p><label for=\"email\">Email: </label><input type=\"email\" id=\"email\" name=\"email\" /></p>");
     }
 }

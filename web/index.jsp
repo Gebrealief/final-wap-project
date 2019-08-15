@@ -41,27 +41,6 @@
         <% } %>
     </div>
 
-    <div id="add-prouduct" <%--class="hide">--%> >
-        <%--  <pre>
-              <label>Name: </label> <input type="text" name="product-name" id="product-name" required>
-              <label>Description</label> <input type="text" name="product-description" id="product-description" required>
-              <label>Quantity: </label><input type="text" name="product-quantity" id="product-quantity" required>
-              <label>Price: </label><input type="text" name="product-price" placeholder="$100" id="product-price" required>
-              <button id="btn_add_product" class="btn btn-info">Add</button>
-          </pre>--%>
-    </div>
-    <div id="save-new-product" class="hide">
-        <button id="btn_add_product" class="btn btn-info">Add</button>
-    </div>
-    <div id="login-control" class="hide">
-        <button id="btn-login-me" class="btn btn-info">Login</button>
-    </div>
-    <div id="signup-control" class="hide">
-        <button id="btn-sign-me" class="btn btn-info">Sign Up</button>
-    </div>
-    <div id="checkout-control" class="hide">
-        <button id="btn-checkout-me" class="btn btn-info">Check out</button>
-    </div>
     <%--<div id="login-form">--%>
     <%--    --%>
     <%--</div>--%>
@@ -86,6 +65,28 @@
 
     </div>
     <div id="cart-container">
+
+        <div id="add-prouduct" <%--class="hide">--%> >
+            <%--  <pre>
+                  <label>Name: </label> <input type="text" name="product-name" id="product-name" required>
+                  <label>Description</label> <input type="text" name="product-description" id="product-description" required>
+                  <label>Quantity: </label><input type="text" name="product-quantity" id="product-quantity" required>
+                  <label>Price: </label><input type="text" name="product-price" placeholder="$100" id="product-price" required>
+                  <button id="btn_add_product" class="btn btn-info">Add</button>
+              </pre>--%>
+        </div>
+        <div id="save-new-product" class="hide buttonControl">
+            <button id="btn_add_product" class="btn btn-info">Add</button>
+        </div>
+        <div id="login-control" class="hide buttonControl">
+            <button id="btn-login-me" class="btn btn-info">Login</button>
+        </div>
+        <div id="signup-control" class="hide buttonControl">
+            <button id="btn-sign-me" class="btn btn-info">Sign Up</button>
+        </div>
+        <div id="checkout-control" class="hide buttonControl">
+            <button id="btn-checkout-me" class="btn btn-info">check out</button>
+        </div>
         <h3> Items in your Cart </h3></br>
         <table class="table table-striped" cellpadding="2" cellspacing="2" id="order-table">
             <th>Option</th>

@@ -56,12 +56,12 @@ public class Login extends HttpServlet {
         else
             out.print("");
 
-        out.print("<form action=\""+ request.getContextPath()+"/login\"" + "method=\"post\">");
-        out.print("<p><label> user name: <input class=\"login-input\" type=\"text\" name=\"user-name\" value=\"" + userName+"\" size=\"20\" maxlength=\"25\"></label></p>\n");
-        out.print("<p><label> password: <input class=\"login-input\" type=\"password\" name=\"password\" size=\"20\" maxlength=\"25\"></label></p>");
-        out.print("<label> remember me: </label><input type=\"checkbox\" name=\"checkbox\"" + rememberme +  " >");
+/*        out.print("<form action=\""+ request.getContextPath()+"/login\"" + "method=\"post\">");*/
+        out.print("<p><label> user name: <input class=\"login-input\" type=\"text\" name=\"user-name\" id=\"user-name\" value=\"" + userName+"\" size=\"20\" maxlength=\"25\"></label></p>\n");
+        out.print("<p><label> password: <input class=\"login-input\" type=\"password\" name=\"password\" id=\"password\" size=\"20\" maxlength=\"25\"></label></p>");
+        out.print("<label> remember me: </label><input type=\"checkbox\" id=\"checkbox\" name=\"checkbox\"" + rememberme +  " >");
         out.print("<p style=\"color: red\">" +  message + "</p>\n");
-        out.print("</form>");
+/*        out.print("</form>");*/
     }
 
     @Override
@@ -71,7 +71,9 @@ public class Login extends HttpServlet {
         String rememberme = req.getParameter("checkbox");
         System.out.println("checkbox: "+rememberme);
         HttpSession session = req.getSession();
-
+        System.out.println("un : " + userName);
+        System.out.println("un : " + password);
+        System.out.println("un : "  + userName);
         boolean flag = false;
         List<User> users = usersDAO.getAllUsers();
         for (User u: users){
@@ -106,9 +108,6 @@ public class Login extends HttpServlet {
         }
         else {
             session.setAttribute("msg", " Invalid user name and password!");
-
-/*            RequestDispatcher requestDispatcher = req.getRequestDispatcher("login.jsp");
-            requestDispatcher.forward(req, resp);*/
             doGet(req, resp);
         }
 
