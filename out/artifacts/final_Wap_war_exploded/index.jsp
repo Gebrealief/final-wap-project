@@ -24,8 +24,10 @@
 <style>
 
     #add-prouduct {
-        background-color: lightcyan;
+        background-color: #f1f1f1;
         margin: 3px;
+        border: 1px solid;
+        border-radius: 5px;
     }
     #add-prouduct label {
         font-weight: bolder;
@@ -47,6 +49,8 @@
         margin-left: auto;
         margin-right: auto;
         font-weight: bolder;
+        text-align: center;
+        padding: 14px;
     }
     div.products h4:first-of-type {
         color: royalblue;
@@ -61,13 +65,19 @@
 %>
 
     <div id="header">
-
+        <div class="title">
+            <h1>Online Shopping</h1>
+        </div>
         <% if (isLoggedIn) { %>
-        <button id="btn_add" class="btn btn-info"> Add Product</button>
-        <button id="btn_logout" class="btn btn-info"> log out</button>
-        <% } else { %>
-        <button id="login" class="btn btn-info"> login</button>
-        <button id="signup" class="btn btn-info"> signup</button>
+        <div class="buttons">
+            <button id="btn_add" class="btn btn-info"> Add Product</button>
+            <button id="btn_logout" class="btn btn-info"> log out</button>
+        </div>
+            <% } else { %>
+        <div class="buttons">
+            <button id="login" class="btn btn-info"> login</button>
+            <button id="signup" class="btn btn-info"> signup</button>
+        </div>
         <% } %>
     </div>
 
@@ -77,7 +87,7 @@
 
     <div id="container">
         <c:forEach items="${products}" var="product">
-            <div class="col-sm-4 col-md-3 products">
+            <div class="col-sm-4 col-md-3 products pdContainer">
                 <div class="products" data-id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-price="${product.price}">
                     <img src="resources/images/mobile.png" alt="mobile" class="img-responsive"/>
                     <h4 class="text-info"><c:out value="${product.name}"/></h4>
@@ -85,7 +95,7 @@
                     <h4> Quantity: <c:out value="${product.quantity}"/></h4>
                     <h4> Price: <c:out value="$${product.price}"/></h4>
                     <input type="text" name="quantity" class="form-control" value="1">
-                    <button class="btn btn-info" id="${product.id}" onclick="addToCart(this.id)"> Add To Cart</button>
+                    <button class="btn btn-info cartButton" id="${product.id}" onclick="addToCart(this.id)"> Add To Cart</button>
                 </div>
             </div>
         </c:forEach>

@@ -13,16 +13,19 @@ $(function () {
         }
     }
     function  fail() {
-        alert("fail");
+        //alert("fail");
+        $('#message').text("Thank you for shopping with us! ");
     }
     function message(err) {
-        alert(err);
+        //alert(err);
+        $('#message').text("Thank you for shopping with us! ");
     }
     function logout() {
         $.post('logout',{logout:JSON.stringify("logout")}).done(out).fail(fail);
     }
     function out() {
-        alert("out");
+        //alert("out");
+        $('#message').text("Thank you for shopping with us! ");
     }
 });
 
@@ -46,25 +49,5 @@ var chb = document.getElementById('hide');
        dv.style.display = 'none';
    }
 }
-
-
-
-// $(function(){
-//     $('#btn').click(function(){
-//         $('#pop').dialog({
-//             title: 'Success!!',
-//             width:450,
-//             height:200,
-//             modal:true,
-//             buttons:{
-//                 close:
-//                     function(){
-//                         $(this).dialog('close');
-//                     }
-//             }
-//
-//         });
-//     });
-// });
 
 

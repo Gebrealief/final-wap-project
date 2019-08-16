@@ -21,9 +21,9 @@ public class MapUsers {
     private Map<String, User> userDAO = new HashMap<>();
 
     {
-        userDAO.put("joun", new User("joun", "joun"));
         userDAO.put("sam", new User("sam", "sam"));
-        userDAO.put("hellen", new User("hellen", "hellen"));
+        userDAO.put("bini", new User("bini", "bini"));
+        userDAO.put("hewan", new User("hewan", "hewan"));
         userDAO.put("smith", new User("smith", "smith"));
         userDAO.put("admin", new User("admin", "admin"));
     }

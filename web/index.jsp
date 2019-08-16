@@ -55,13 +55,13 @@
 </head>
 <div>
     <body>
+
         <%
     boolean isLoggedIn=false;
     isLoggedIn= ( session.getAttribute("userName") != null ) ;
 %>
 
     <div id="header">
-
         <% if (isLoggedIn) { %>
         <button id="btn_add" class="btn btn-info"> Add Product</button>
         <button id="btn_logout" class="btn btn-info"> log out</button>
@@ -77,7 +77,7 @@
 
     <div id="container">
         <c:forEach items="${products}" var="product">
-            <div class="col-sm-4 col-md-3 products">
+            <div class="col-sm-4 col-md-3 products pdContainer">
                 <div class="products" data-id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-price="${product.price}">
                     <img src="resources/images/mobile.png" alt="mobile" class="img-responsive"/>
                     <h4 class="text-info"><c:out value="${product.name}"/></h4>
