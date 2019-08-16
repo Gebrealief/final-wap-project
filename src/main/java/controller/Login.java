@@ -50,18 +50,16 @@ public class Login extends HttpServlet {
                 }
             }
         }
-        out.print("<h3>Welcome</h3>");
+        out.print("<h1>Welcome</h1>");
         if(request.getAttribute("msg") != null)
             out.print(request.getAttribute("msg"));
         else
             out.print("");
 
-/*        out.print("<form action=\""+ request.getContextPath()+"/login\"" + "method=\"post\">");*/
-        out.print("<p><label> user name: <input class=\"login-input\" type=\"text\" name=\"user-name\" id=\"user-name\" value=\"" + userName+"\" size=\"20\" maxlength=\"25\"></label></p>\n");
-        out.print("<p><label> password: <input class=\"login-input\" type=\"password\" name=\"password\" id=\"password\" size=\"20\" maxlength=\"25\"></label></p>");
+        out.print("<p><label> user name: </label><input class=\"login-input\" type=\"text\" name=\"user-name\" id=\"user-name\" value=\"" + userName+"\" size=\"20\" maxlength=\"25\"></p>\n");
+        out.print("<p><label> password: </label><input class=\"login-input\" type=\"password\" name=\"password\" id=\"password\" size=\"20\" maxlength=\"25\"></p>");
         out.print("<label> remember me: </label><input type=\"checkbox\" id=\"checkbox\" name=\"checkbox\"" + rememberme +  " >");
         out.print("<p style=\"color: red\">" +  message + "</p>\n");
-/*        out.print("</form>");*/
     }
 
     @Override

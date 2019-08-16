@@ -53,6 +53,8 @@ public class SignUpServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out= response.getWriter();
+
+        out.println("<h1> Sign Up </h1>");
         out.println("<p><label for=\"fullName\">Full Name: </label> <input id=\"fullName\" type=\"text\" name=\"fullName\" /></p>");
         out.println("<p><label for=\"userName\">User Name: </label><input id=\"userName\" type=\"text\" name=\"userName\" /></p>");
         out.println("<p><label for=\"password\">Password: </label><input id=\"password\" type=\"password\" name=\"password\" /></p>");

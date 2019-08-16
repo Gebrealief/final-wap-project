@@ -29,20 +29,13 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setAttribute("products", products.getAllProducts());
-        //continue here
+        req.getSession().setAttribute("products", products.getAllProducts());
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
         dispatcher.forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-/*       // String jsonSting = req.getParameter("product");
-        Product product = mapper.fromJson(req.getParameter("product"), Product.class);
-        product.setId(products.genId());
-        products.addProduct(product);
-        PrintWriter out = resp.getWriter();
-        out.print(mapper.toJson(product));*/
-        //resp.setContentType("text/html");
         try {
             String name="", description="", price="0.0";
             int quantity=0, id;
@@ -59,7 +52,7 @@ public class ProductController extends HttpServlet {
 
             Product product= new Product(id, name, description, quantity, price);
             products.addProduct(product);
-
+            request.getSession().setAttribute("products", products.getAllProducts());
             PrintWriter out= resp.getWriter();
             out.print("You have successfully Added a Product.");
         }catch(Exception e) {

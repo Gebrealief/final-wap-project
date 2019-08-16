@@ -1,11 +1,74 @@
+$(function() {
+
+    $("#testBtn").click(function() {
+        repopulateProductList();
+    } );
+    $('div.products').find("button").on('click',addToCart );
+});
+function repopulateProductList() {
+    $('#container').find("*").remove();
+    $.post("ajaxProduct", {}).done(populateProductList).fail(populateProductList);
+}
+function populateProductList(data) {
+    var $cont= $('#container');
+    $.each(data, function(indx, product) {
+        console.log(product.name);
+        //var $topDiv= $('<div>').addClass('col-sm-4').addClass('col-md-3').addClass('products');
+        var $topDiv= $('<div>').addClass('col-sm-4 col-md-3 products');
+        var $productDiv= $('<div>');
+        var $img= $("<img>").attr("src" ,"resources/images/mobile.png" ).attr("alt", "mobile").addClass("img-responsive");
+        $productDiv.append($img);
+        var $h41= $('<h4>').text(product.name);
+        $h41.addClass('class-info');
+        $productDiv.append($h41);
+        var $h42= $('<h4>').text("Description: " + product.description);
+        $productDiv.append($h42);
+        var $h43= $('<h4>').text("Quantity: " + product.quantity);
+        $productDiv.append($h43);
+        var $h44= $('<h4>').text("Price: " + product.name);
+        $productDiv.append($h44);
+        var $input= $("<input>")
+        $input.addClass('form-control');
+        $input.attr({"type": "text", "value":"1"});
+        $productDiv.append("Quantity: ");
+        $productDiv.append($input);
+        var $button= $('<button>');
+        $button.addClass('btn btn-info');
+        $button.text('Add To Cart');
+        $button.attr('id', product.id);
+        $button.on('click',addToCart )
+        $productDiv.append($button);
+        $productDiv.data('prod', JSON.stringify(product));
+        $productDiv.data('id', product.id);
+        $productDiv.data('name', product.name);
+        $productDiv.data('description', product.description);
+        $productDiv.data('price', product.price);
+        //.addClass('btn-info').attr('id', product.id).on('click', addToCart(this.id)).text('Add To Cart');
+
+        /*
+
+
+                $productDiv.append($button);
+*/
+        $topDiv.append($productDiv);
+        $cont.append($topDiv);
+        //alert("appended element number: " + indx);
+    });
+
+}
+function populateProductListFail(xhr, status, exception) {
+    alert('json failed.');
+}
 var id;
 /*
 * event handler after Add to cart btn click
 *
 * */
-function addToCart(clicked_id) {
-    id =clicked_id;
-    console.log(id);
+function addToCart(evt) {
+/*    id =clicked_id;
+    id =this.id;
+    alert(this.id);
+    //console.log(id);
     var siblings = $('#'+id).siblings().not('img');
     var item = {id: id,
         name: siblings[0].innerText,
@@ -13,7 +76,15 @@ function addToCart(clicked_id) {
         quantity: siblings[4].value,
         price: siblings[3].innerText.split(":")[1].split("$")[1].trim(),
        // number:siblings[4].value
-    };
+    };*/
+    var $parent= $(this).parent('div');
+    var item= {};
+    item.id= $parent.data('id');
+    item.name=  $parent.data('name');
+    item.description= $parent.data('description');
+    var qt= parseInt($(this).siblings('input[type="text"]').val());
+    item.price= $parent.data('price');
+    item.quantity=qt;
     $.post('order', {item: JSON.stringify(item)}).done(saveToCart).fail(fail);
 }
 // event handler after remove btn click
@@ -68,6 +139,9 @@ function fail(data) {
 $(function () {
 
     'use strict';
+
+
+
     //display add product form
     $('#btn_add').click(displayPage);
     $('#btn_add_product').click(sendProductDetails);
@@ -111,9 +185,7 @@ $(function () {
         $('.buttonControl').addClass('hide');
         $(exceptID).removeClass('hide');
     }
-    function hideAllControls() {
 
-    }
     function loadSignUpPage (evt) {
         hideAllControlsExcept('#signup-control');
         $('#add-prouduct').find("*").remove();
@@ -156,11 +228,18 @@ $(function () {
         //$.post('products',{product: JSON.stringify(product)}, addProduct, "json");
         //alert('name: ' +  productName + " , desc: " + productDescription + " , Quantity: " + productQuantity + " , price: " + productPrice);
         $.post("products",{
-                name: productName,
-                description: productDescription,
-                quantity: productQuantity,
-                price: productPrice
+            name: productName,
+            description: productDescription,
+            quantity: productQuantity,
+            price: productPrice
         }).done(addProduct).fail(addProductFail);
+        $('#product-name').val("");
+        $('#product-description').val("");
+        $('#product-quantity').val("");
+        $('#product-price').val("");
+        $('#product-name').focus();
+        repopulateProductList();
+
 }
 function adjustTopMenu(isLoggedIn) {
     $('#btn_logout').toggleClass('hide');

@@ -48,9 +48,6 @@ public class CheckoutController extends HttpServlet {
                 //clear item from cart
                 items.deleteItem(id);
             }
-
-
-
         } else{
             System.out.println(action + " is not equal to checkout");
         }

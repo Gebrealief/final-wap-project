@@ -21,7 +21,37 @@
     <link rel="stylesheet" href="jquery.fancybox.css" type="text/css" media="screen"/>
     <script type="text/javascript" src="jquery.fancybox.pack.js"></script>
     <script type="text/javascript" src="resources/js/script.js"></script>
+<style>
 
+    #add-prouduct {
+        background-color: lightcyan;
+        margin: 3px;
+    }
+    #add-prouduct label {
+        font-weight: bolder;
+        text-align: right;
+        padding-right: 2px;
+        display: inline-block;
+        width: 110px;
+    }
+    #add-prouduct input[type="text|email|number|password"] {
+        border-radius: 3px;
+        font-size: 10px;
+        display: inline-block;
+        margin-left: 2px;
+        background-color: lightgoldenrodyellow;
+    }
+    #add-prouduct h1 {
+        font-size: 18px;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: bolder;
+    }
+    div.products h4:first-of-type {
+        color: royalblue;
+    }
+</style>
 </head>
 <div>
     <body>
@@ -48,9 +78,7 @@
     <div id="container">
         <c:forEach items="${products}" var="product">
             <div class="col-sm-4 col-md-3 products">
-                    <%--       <form action="order" method="post">--%>
-                <div class="products">
-
+                <div class="products" data-id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-price="${product.price}">
                     <img src="resources/images/mobile.png" alt="mobile" class="img-responsive"/>
                     <h4 class="text-info"><c:out value="${product.name}"/></h4>
                     <h4> Description: <c:out value="${product.description}"/></h4>
@@ -59,7 +87,6 @@
                     <input type="text" name="quantity" class="form-control" value="1">
                     <button class="btn btn-info" id="${product.id}" onclick="addToCart(this.id)"> Add To Cart</button>
                 </div>
-                    <%--       </form>--%>
             </div>
         </c:forEach>
 

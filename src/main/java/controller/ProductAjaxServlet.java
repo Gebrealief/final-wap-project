@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import com.google.gson.Gson;
 
 @WebServlet("/ajaxProduct")
 public class ProductAjaxServlet extends HttpServlet {
@@ -21,17 +23,25 @@ public class ProductAjaxServlet extends HttpServlet {
         products = ProductDB.getInstance();
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*        String name=request.getParameter("name"),
-                description= request.getParameter("description");
-        int quantity= Integer.parseInt(request.getParameter("quantity"));
-        String price= request.getParameter("price");
-        int id= products.genId();
-        Product product= new Product(id, name, description, quantity, price);*/
-    }
+        PrintWriter out=response.getWriter();
+        List<Product> resultProducts=null;
+        try{
+            resultProducts= (List<Product>) request.getSession().getAttribute("products");
+            String JSONProducts;
+            JSONProducts = new Gson().toJson(resultProducts);
 
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            out.write(JSONProducts);
+            System.out.println("The product number in counting: " + resultProducts.size());
+        }catch(Exception e) {
+            out.print("FALSE");
+        }
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out= response.getWriter();
+        out.print("<h1>Add NEW Product </h1>");
         out.print("<label>Name: </label> <input type=\"text\" name=\"product-name\" id=\"product-name\" required>");
         out.println("<br>");
         out.print("<label>Description</label> <input type=\"text\" name=\"product-description\" id=\"product-description\" required>");
